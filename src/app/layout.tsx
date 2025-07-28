@@ -30,7 +30,7 @@ function Navigation() {
             alt="Company Logo" 
             width={40} 
             height={40}
-            className="logo-image"
+
           />
           <span className="logo-text">TechHunting</span>
         </div>
@@ -119,7 +119,7 @@ export default function RootLayout({
           }
           .nav-container {
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1rem;
             display: grid;
             grid-template-columns: 1fr auto 1fr;
             align-items: center;
@@ -132,6 +132,7 @@ export default function RootLayout({
             font-weight: 700;
             font-size: 1.25rem;
             color: var(--color-royal-blue);
+            margin-right: 20px;
           }
          
           .logo-text {
