@@ -1,19 +1,7 @@
 "use client";
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Image from "next/image";
+import Image from 'next/image';
+import './globals.css';
 import { useState } from "react";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 function Navigation() {
   const [activeSection, setActiveSection] = useState('home');
@@ -41,7 +29,6 @@ function Navigation() {
             src="/company-logo.png" 
             alt="Company Logo" 
             width={40} 
-
             height={40}
             className="logo-image"
           />
@@ -104,7 +91,7 @@ function Navigation() {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">

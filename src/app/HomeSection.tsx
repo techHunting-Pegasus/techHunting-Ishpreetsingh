@@ -1,6 +1,5 @@
 "use client";
 import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
-import Image from 'next/image';
 
 export default function HomeSection() {
   return (
@@ -9,7 +8,7 @@ export default function HomeSection() {
       <section className="hero-section">
         <div className="hero-left">
           <h1 className="hero-title">
-            Hi, I'm <span className="hero-name">Ishpreet Singh</span>
+            Hi, I&apos;m <span className="hero-name">Ishpreet Singh</span>
             <br />
             <span className="hero-typewriter">
               <span className="typewriter-text">iOS &amp; React Native Developer</span>

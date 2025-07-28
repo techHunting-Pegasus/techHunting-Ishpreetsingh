@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { FaSwift, FaJs, FaReact, FaApple, FaAndroid, FaDatabase, FaBell, FaRegClock, FaAppleAlt, FaHeartbeat } from 'react-icons/fa';
+import { FaSwift, FaJs, FaReact, FaApple, FaAndroid, FaBell, FaRegClock, FaAppleAlt, FaHeartbeat } from 'react-icons/fa';
 import { SiTypescript, SiFlutter, SiFirebase, SiRedux, SiStripe } from 'react-icons/si';
 
 const skillCategories = [

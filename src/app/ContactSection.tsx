@@ -2,7 +2,6 @@
 import { useRef, useState } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaPaperPlane, FaExclamationTriangle } from 'react-icons/fa';
 import emailjs from 'emailjs-com';
-import { log } from 'console';
 import Image from 'next/image';
 
 const socials = [
@@ -106,7 +105,7 @@ export default function ContactSection() {
       formRef.current!,
       'Bev90hB4V4f22jRsL'
     ).then(
-      (result) => {
+      () => {
         setSent(true);
         setLoading(false);
         setErrors({});
