@@ -1,5 +1,5 @@
 'use client';
-import { useState, type ReactElement } from 'react';
+import { useState, useMemo, type ReactElement } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as Dialog from '@radix-ui/react-dialog';
 import { FaApple, FaReact, FaGithub, FaExternalLinkAlt, FaHeart, FaRegCalendarAlt, FaVideo, FaServer, FaBell, FaShoppingBag } from 'react-icons/fa';
@@ -246,27 +246,22 @@ export default function ProjectsSection() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   const [filter, setFilter] = useState<string>('All');
 
-  const filteredProjects = filter === 'All' ? projects : projects.filter(p => p.tech.includes(filter));
+  const filteredProjects = useMemo(() => filter === 'All' ? projects : projects.filter(p => p.tech.includes(filter)), [filter]);
 
   return (
     <section id="projects" style={{ width: '100%', maxWidth: 1200, margin: '0 auto', marginTop: '4rem' }}>
       <h2 style={{ textAlign: 'center', marginBottom: '2.5rem', fontSize: '2.2rem', letterSpacing: '-1px' }}>Projects</h2>
       <div className="project-filters">
-        <button className={`project-filter${filter === 'All' ? ' active' : ''}`} onClick={() => setFilter('All')}>All</button>
+        <button type="button" className={`project-filter${filter === 'All' ? ' active' : ''}`} onClick={() => setFilter('All')}>All</button>
         {allTech.map(tech => (
-          <button key={tech} className={`project-filter${filter === tech ? ' active' : ''}`} onClick={() => setFilter(tech)}>{techIcons[tech] || tech} {tech}</button>
+          <button type="button" key={tech} className={`project-filter${filter === tech ? ' active' : ''}`} onClick={() => setFilter(tech)}>{techIcons[tech] || tech} {tech}</button>
         ))}
       </div>
       <div className="projects-grid">
         {filteredProjects.map((project, idx) => (
-          <motion.div
-            key={project.title}
+          <div
+            key={idx}
             className={`project-card${project.featured ? ' featured' : ''}`}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6, delay: idx * 0.08 }}
-            whileHover={{ scale: 1.045, boxShadow: '0 8px 32px rgba(35,70,160,0.16)' }}
           >
             {project.featured && <div className="project-featured">Featured</div>}
             <div
@@ -327,7 +322,7 @@ export default function ProjectsSection() {
                 </AnimatePresence>
               </Dialog.Root>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
       <style>{`
