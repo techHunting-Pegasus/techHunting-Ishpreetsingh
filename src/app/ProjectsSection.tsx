@@ -64,7 +64,7 @@ const projects = [
     tech: ['iOS', 'Swift', 'StoreKit', 'REST'],
     github: '',
     live: '',
-  },
+  },  
   {
     title: 'iDrop',
     featured: true,
