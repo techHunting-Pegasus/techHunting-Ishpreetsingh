@@ -14,7 +14,7 @@ export default function HomeSection() {
             </span>
           </h1>
           <p className="hero-subtext">
-            Senior mobile developer with 5+ years of experience building beautiful, scalable, and efficient mobile applications. 
+            Senior mobile developer with 4+ years of experience building beautiful, scalable, and efficient mobile applications. 
             Specialized in iOS native development and React Native cross-platform solutions.
           </p>
           <div className="hero-socials">

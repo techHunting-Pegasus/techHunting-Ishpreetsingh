@@ -2,10 +2,69 @@
 import { useState, type ReactElement } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as Dialog from '@radix-ui/react-dialog';
-import { FaApple, FaReact, FaGithub, FaExternalLinkAlt, FaHeart, FaRegCalendarAlt } from 'react-icons/fa';
+import { FaApple, FaReact, FaGithub, FaExternalLinkAlt, FaHeart, FaRegCalendarAlt, FaVideo, FaServer, FaBell, FaShoppingBag } from 'react-icons/fa';
 import { SiFlutter, SiFirebase } from 'react-icons/si';
 
 const projects = [
+  {
+    title: 'LAW & CRIME',
+    description: 'OTT streaming app for live trials, legal news, and crime content with a CMS-driven UI.',
+    longDescription: `LAW & CRIME is a USA-based OTT streaming platform focused on live courtroom coverage, legal analysis, and crime-related content. The application is fully driven by a dynamic CMS, enabling flexible UI updates and content management without app releases.
+
+**Key Features:**
+- CMS-based dynamic UI rendering
+- Video streaming with optimized performance
+- Deep linking for seamless navigation
+- Push notification integration for real-time updates
+- Scalable API architecture
+
+**Tech Stack:** iOS (Swift), UIKit, REST APIs, Deep Linking, Push Notifications
+
+**My Role:** Developed and integrated CMS-driven UI, handled API integration, implemented deep linking, and managed notification workflows for smooth content delivery.`,
+    image: '',
+    tech: ['iOS', 'Swift', 'Video', 'REST', 'Push'],
+    github: '',
+    live: '',
+  },
+  {
+    title: 'CNBC Arabia',
+    description: 'Full-featured news app with real-time updates, notifications, and deep linking.',
+    longDescription: `CNBC Arabia is a full-featured news application delivering business, finance, and global updates. The app was built end-to-end with a strong focus on performance, scalability, and user engagement.
+
+**Key Features:**
+- Real-time news feed with API integration
+- Deep linking for content navigation
+- Push notifications for breaking news
+- Clean and responsive UI/UX
+- Optimized data handling for fast loading
+
+**Tech Stack:** iOS (Swift), UIKit, REST APIs, Push Notifications, Deep Linking
+
+**My Role:** Independently built the entire application from scratch, including UI implementation, API integration, the notification system, and deep linking architecture.`,
+    image: '',
+    tech: ['iOS', 'Swift', 'News', 'Push', 'REST'],
+    github: '',
+    live: '',
+  },
+  {
+    title: 'ALTBalaji',
+    description: 'OTT subscription flows with StoreKit 2 for secure in-app purchases.',
+    longDescription: `ALTBalaji is a popular OTT streaming platform offering web series, movies, and exclusive content. My work focused on subscription management, ensuring smooth and secure in-app purchase flows.
+
+**Key Features:**
+- Subscription handling using StoreKit 2
+- Purchase validation and receipt handling
+- Seamless experience for plans and upgrades
+- Backend integration for subscription status sync
+
+**Tech Stack:** iOS (Swift), StoreKit 2, In-App Purchases, REST APIs
+
+**My Role:** Implemented subscription modules with StoreKit 2, managed purchase flows and validations, and ensured reliable subscription lifecycle management.`,
+    image: '',
+    tech: ['iOS', 'Swift', 'StoreKit', 'REST'],
+    github: '',
+    live: '',
+  },
   {
     title: 'iDrop',
     featured: true,
@@ -160,6 +219,7 @@ const projects = [
     github: '',
     live: '',
   },
+  
 ];
 
 const gradients = [
@@ -176,7 +236,8 @@ const gradients = [
 const techIcons: { [key: string]: ReactElement } = {
   'iOS': <FaApple color="#2346a0" title="iOS" />, 'Swift': <FaApple color="#fa7343" title="Swift" />, 'Firebase': <SiFirebase color="#ffcb2b" title="Firebase" />, 'Shopping': <FaHeart color="#e17055" title="Shopping" />,
   'Health': <FaHeart color="#00b894" title="Health" />, 'WatchOS': <FaApple color="#000" title="WatchOS" />, 'React Native': <FaReact color="#61dafb" title="React Native" />, 'News': <FaRegCalendarAlt color="#2346a0" title="News" />,
-  'Flutter': <SiFlutter color="#02569B" title="Flutter" />, 'Event': <FaRegCalendarAlt color="#2346a0" title="Event" />, 'Calendar': <FaRegCalendarAlt color="#2346a0" title="Calendar" />, 'Publishing': <FaRegCalendarAlt color="#2346a0" title="Publishing" />, 'Conference': <FaRegCalendarAlt color="#2346a0" title="Conference" />, 'Analytics': <FaRegCalendarAlt color="#2346a0" title="Analytics" />, 'Dating': <FaHeart color="#e17055" title="Dating" />, 'Chat': <FaHeart color="#e17055" title="Chat" />
+  'Flutter': <SiFlutter color="#02569B" title="Flutter" />, 'Event': <FaRegCalendarAlt color="#2346a0" title="Event" />, 'Calendar': <FaRegCalendarAlt color="#2346a0" title="Calendar" />, 'Publishing': <FaRegCalendarAlt color="#2346a0" title="Publishing" />, 'Conference': <FaRegCalendarAlt color="#2346a0" title="Conference" />, 'Analytics': <FaRegCalendarAlt color="#2346a0" title="Analytics" />, 'Dating': <FaHeart color="#e17055" title="Dating" />, 'Chat': <FaHeart color="#e17055" title="Chat" />,
+  'Video': <FaVideo color="#c0392b" title="Video" />, 'REST': <FaServer color="#636e72" title="REST APIs" />, 'Push': <FaBell color="#e17055" title="Push notifications" />, 'StoreKit': <FaShoppingBag color="#2d3436" title="StoreKit" />,
 };
 
 const allTech = Array.from(new Set(projects.flatMap(p => p.tech)));
