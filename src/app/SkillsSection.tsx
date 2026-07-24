@@ -1,224 +1,240 @@
-'use client';
-import { useState } from 'react';
-import { FaSwift, FaJs, FaReact, FaApple, FaAndroid, FaBell, FaRegClock, FaAppleAlt, FaHeartbeat } from 'react-icons/fa';
-import { SiTypescript, SiFlutter, SiFirebase, SiRedux, SiStripe } from 'react-icons/si';
+"use client";
 
-const skillCategories = [
+import { useState, type ReactElement } from "react";
+import { motion } from "framer-motion";
+import {
+  FaAndroid,
+  FaApple,
+  FaAppleAlt,
+  FaBell,
+  FaHeartbeat,
+  FaJs,
+  FaReact,
+  FaRegClock,
+  FaSwift,
+} from "react-icons/fa";
+import { SiFirebase, SiFlutter, SiRedux, SiStripe, SiTypescript } from "react-icons/si";
+import Reveal from "./Reveal";
+import TiltCard from "./TiltCard";
+
+type Skill = {
+  name: string;
+  icon: ReactElement;
+  level: number;
+  description: string;
+  projects: string[];
+};
+
+type SkillCategory = {
+  name: string;
+  skills: Skill[];
+};
+
+const skillCategories: SkillCategory[] = [
   {
-    name: 'Languages',
+    name: "Languages",
     skills: [
-      { name: 'Swift', icon: <FaSwift color="#fa7343" />, level: 95, description: 'Apple’s modern language for iOS, macOS, and more.', projects: ['Fitness App', 'Finance Tracker'] },
-      { name: 'JavaScript', icon: <FaJs color="#f7df1e" />, level: 92, description: 'The language of the web and cross-platform apps.', projects: ['Chat App', 'E-commerce'] },
-      { name: 'TypeScript', icon: <SiTypescript color="#3178c6" />, level: 88, description: 'Typed superset of JavaScript for safer code.', projects: ['Admin Dashboard'] },
+      {
+        name: "Swift",
+        icon: <FaSwift color="#fa7343" />,
+        level: 95,
+        description: "Primary language for high-quality iOS apps and scalable architecture.",
+        projects: ["LAW & CRIME", "CNBC Arabia"],
+      },
+      {
+        name: "JavaScript",
+        icon: <FaJs color="#f7df1e" />,
+        level: 92,
+        description: "Production-ready JavaScript for mobile logic, SDK integrations, and tooling.",
+        projects: ["TWR", "By the Way"],
+      },
+      {
+        name: "TypeScript",
+        icon: <SiTypescript color="#3178c6" />,
+        level: 88,
+        description: "Type-safe development for complex React Native codebases and APIs.",
+        projects: ["Admin Dashboard", "Rallii"],
+      },
     ],
   },
   {
-    name: 'Frameworks',
+    name: "Frameworks",
     skills: [
-      { name: 'UIKit', icon: <FaApple color="#2346a0" />, level: 90, description: 'Apple’s UI framework for building iOS interfaces.', projects: ['Health Tracker'] },
-      { name: 'SwiftUI', icon: <FaApple color="#2346a0" />, level: 85, description: 'Declarative UI framework for Apple platforms.', projects: ['Recipe App'] },
-      { name: 'React Native', icon: <FaReact color="#61dafb" />, level: 93, description: 'Build native mobile apps using React.', projects: ['Social Network'] },
-      { name: 'Flutter', icon: <SiFlutter color="#02569B" />, level: 80, description: 'Google’s UI toolkit for natively compiled apps.', projects: ['Travel App'] },
-      { name: 'Redux', icon: <SiRedux color="#764abc" />, level: 80, description: 'State management for React/React Native.', projects: ['E-commerce'] },
+      {
+        name: "UIKit",
+        icon: <FaApple color="#212121" />,
+        level: 90,
+        description: "Mature iOS interfaces with robust navigation patterns and custom interactions.",
+        projects: ["LAW & CRIME", "ALTBalaji"],
+      },
+      {
+        name: "SwiftUI",
+        icon: <FaApple color="#212121" />,
+        level: 85,
+        description: "Faster UI iteration with clean declarative components on Apple platforms.",
+        projects: ["goPiviot", "MiloCare"],
+      },
+      {
+        name: "React Native",
+        icon: <FaReact color="#00b5d8" />,
+        level: 93,
+        description: "Cross-platform app delivery with near-native feel and efficient release cycles.",
+        projects: ["TWR", "CFL"],
+      },
+      {
+        name: "Flutter",
+        icon: <SiFlutter color="#02569b" />,
+        level: 80,
+        description: "Fast feature delivery for event and health products using shared UI components.",
+        projects: ["ICEF", "MiloCare"],
+      },
+      {
+        name: "Redux",
+        icon: <SiRedux color="#764abc" />,
+        level: 80,
+        description: "Predictable state management for large app surfaces and complex data flows.",
+        projects: ["TWR", "By the Way"],
+      },
     ],
   },
   {
-    name: 'Platforms',
+    name: "Platforms",
     skills: [
-      { name: 'WatchOS', icon: <FaAppleAlt color="#000" />, level: 75, description: 'Apps and experiences for Apple Watch.', projects: ['Fitness App'] },
-      { name: 'HealthKit', icon: <FaHeartbeat color="#00b894" />, level: 78, description: 'Integrate health and fitness data on iOS.', projects: ['Health Tracker'] },
-      { name: 'Firebase', icon: <SiFirebase color="#ffcb2b" />, level: 85, description: 'Backend-as-a-service for real-time apps.', projects: ['Chat App', 'Analytics'] },
-      { name: 'Apple', icon: <FaApple color="#2346a0" />, level: 90, description: 'iOS, macOS, watchOS, tvOS platforms.', projects: ['All iOS Apps'] },
-      { name: 'Android', icon: <FaAndroid color="#3ddc84" />, level: 70, description: 'Android platform for mobile apps.', projects: ['Travel App'] },
+      {
+        name: "WatchOS",
+        icon: <FaAppleAlt color="#212121" />,
+        level: 75,
+        description: "Companion experiences for Apple Watch with health and activity context.",
+        projects: ["goPiviot"],
+      },
+      {
+        name: "HealthKit",
+        icon: <FaHeartbeat color="#16a34a" />,
+        level: 78,
+        description: "Secure health data integrations powering insights and personalized routines.",
+        projects: ["goPiviot", "MiloCare"],
+      },
+      {
+        name: "Firebase",
+        icon: <SiFirebase color="#f59e0b" />,
+        level: 85,
+        description: "Realtime data, auth, and messaging infrastructure for mobile products.",
+        projects: ["TWR", "ICEF"],
+      },
+      {
+        name: "Apple Ecosystem",
+        icon: <FaApple color="#212121" />,
+        level: 90,
+        description: "iOS-first delivery with ecosystem-level thinking across Apple devices.",
+        projects: ["LAW & CRIME", "CNBC Arabia"],
+      },
+      {
+        name: "Android",
+        icon: <FaAndroid color="#3ddc84" />,
+        level: 70,
+        description: "Cross-platform support for broad product reach and stable Android releases.",
+        projects: ["ICEF", "By the Way"],
+      },
     ],
   },
   {
-    name: 'Tools',
+    name: "Tools",
     skills: [
-      { name: 'Push Notifications', icon: <FaBell color="#2346a0" />, level: 87, description: 'Real-time user engagement on mobile.', projects: ['News App'] },
-      { name: 'Subscriptions', icon: <SiStripe color="#635bff" />, level: 82, description: 'In-app purchases and recurring payments.', projects: ['Finance Tracker'] },
-      { name: 'Realtime', icon: <FaRegClock color="#2346a0" />, level: 80, description: 'Realtime data and updates.', projects: ['Chat App'] },
+      {
+        name: "Push Notifications",
+        icon: <FaBell color="#0f766e" />,
+        level: 87,
+        description: "Timely and meaningful push workflows that improve retention.",
+        projects: ["CNBC Arabia", "CFL"],
+      },
+      {
+        name: "Subscriptions",
+        icon: <SiStripe color="#635bff" />,
+        level: 82,
+        description: "Reliable in-app purchases and subscription lifecycle handling.",
+        projects: ["ALTBalaji", "iDrop"],
+      },
+      {
+        name: "Realtime Systems",
+        icon: <FaRegClock color="#0f766e" />,
+        level: 80,
+        description: "Live sync experiences for chat, updates, and event-driven data.",
+        projects: ["By the Way", "Rallii"],
+      },
     ],
   },
 ];
 
 export default function SkillsSection() {
   const [activeTab, setActiveTab] = useState(0);
-  const [expanded, setExpanded] = useState<number | null>(null);
-
-  const currentSkills = skillCategories[activeTab].skills;
 
   return (
-    <section id="skills" style={{ width: '100%', maxWidth: 1200, margin: '0 auto', marginTop: '4rem' }}>
-      <h2 style={{ textAlign: 'center', marginBottom: '2.5rem', fontSize: '2.2rem', letterSpacing: '-1px' }}>Skills</h2>
-      <div className="skills-tabs">
-        {skillCategories.map((cat, idx) => (
-          <button
-            key={cat.name}
-            className={`skills-tab${activeTab === idx ? ' active' : ''}`}
-            onClick={() => { setActiveTab(idx); setExpanded(null); }}
-            type="button"
-          >
-            {cat.name}
-          </button>
-        ))}
-      </div>
-      <div className="skills-grid">
-        {currentSkills.map((skill, idx) => (
-          <div
-            key={skill.name}
-            className={`skill-card${expanded === idx ? ' expanded' : ''}`}
-            tabIndex={0}
-            onClick={() => setExpanded(expanded === idx ? null : idx)}
-            onBlur={() => setExpanded(null)}
-            onMouseEnter={() => setExpanded(idx)}
-            onMouseLeave={() => setExpanded(null)}
-            aria-label={skill.description}
-          >
-            <div className="skill-header">
-              <span className="skill-icon">{skill.icon}</span>
-              <span className="skill-name">{skill.name}</span>
-              <span className="skill-level">{skill.level}%</span>
-            </div>
-            <div className="progress-bar">
-              <div className="progress-fill" style={{ width: `${skill.level}%` }} />
-            </div>
-            <div className="skill-desc" style={{ maxHeight: expanded === idx ? 120 : 0, opacity: expanded === idx ? 1 : 0 }}>
-              <div>{skill.description}</div>
-              {skill.projects && (
-                <div className="skill-projects">
-                  <span>Projects:</span> {skill.projects.join(', ')}
-                </div>
-              )}
-            </div>
+    <section id="skills" className="skills-section">
+      <div className="container">
+        <Reveal>
+          <p className="section-kicker">Skills</p>
+          <h2 className="section-title">Technical Depth Across Native And Cross-Platform</h2>
+          <p className="section-copy">
+            My toolkit balances speed and quality: strong iOS foundations, React Native delivery, and battle-tested
+            integrations for subscriptions, notifications, and realtime features.
+          </p>
+
+          <div className="skill-tabs" role="tablist" aria-label="Skill categories">
+            {skillCategories.map((category, index) => (
+              <button
+                key={category.name}
+                type="button"
+                className={`skill-tab${activeTab === index ? " active" : ""}`}
+                onClick={() => setActiveTab(index)}
+                role="tab"
+                aria-selected={activeTab === index}
+              >
+                {category.name}
+              </button>
+            ))}
           </div>
-        ))}
+        </Reveal>
+
+        <motion.div
+          key={activeTab}
+          className="skill-grid"
+          initial="hidden"
+          animate="show"
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
+        >
+          {skillCategories[activeTab].skills.map((skill) => (
+            <motion.div
+              key={skill.name}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+              }}
+            >
+              <TiltCard className="skill-card" max={7}>
+                <div className="skill-card-top">
+                  <span className="skill-icon" aria-hidden>
+                    {skill.icon}
+                  </span>
+                  <h3>{skill.name}</h3>
+                  <span className="skill-level">{skill.level}%</span>
+                </div>
+
+                <div className="skill-meter" aria-hidden>
+                  <span className="skill-meter-fill" style={{ width: `${skill.level}%` }} />
+                </div>
+
+                <p>{skill.description}</p>
+
+                <div className="skill-pill-list">
+                  {skill.projects.map((project) => (
+                    <span key={project}>{project}</span>
+                  ))}
+                </div>
+              </TiltCard>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
-      <style>{`
-        .skills-tabs {
-          display: flex;
-          justify-content: center;
-          gap: 1.2rem;
-          margin-bottom: 2.2rem;
-          flex-wrap: wrap;
-        }
-        .skills-tab {
-          background: #e6ecfa;
-          color: var(--color-royal-blue);
-          border: none;
-          border-radius: 0.7rem 0.7rem 0 0;
-          padding: 0.7rem 1.7rem;
-          font-size: 1.08rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: background 0.18s, color 0.18s;
-          outline: none;
-        }
-        .skills-tab.active, .skills-tab:hover, .skills-tab:focus {
-          background: linear-gradient(90deg, #2346a0 60%, #0d1b3f 100%);
-          color: #fff;
-        }
-        .skills-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-          gap: 2rem;
-          width: 100%;
-        }
-        .skill-card {
-          background: rgba(248,249,250,0.92);
-          border-radius: 1.2rem;
-          box-shadow: 0 4px 24px var(--color-shadow);
-          padding: 1.5rem 1.2rem 1.2rem 1.2rem;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          cursor: pointer;
-          transition: box-shadow 0.22s, transform 0.22s;
-          position: relative;
-          min-height: 110px;
-          outline: none;
-        }
-        .skill-card:hover, .skill-card:focus, .skill-card.expanded {
-          box-shadow: 0 8px 32px var(--color-shadow);
-          transform: scale(1.035) translateY(-2px);
-        }
-        .skill-header {
-          width: 100%;
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-          margin-bottom: 0.7rem;
-          gap: 0.7rem;
-        }
-        .skill-icon {
-          font-size: 1.5rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .skill-name {
-          font-weight: 700;
-          color: var(--color-royal-blue);
-          font-size: 1.13rem;
-          flex: 1;
-        }
-        .skill-level {
-          font-size: 0.98rem;
-          color: var(--color-accent);
-          font-weight: 600;
-        }
-        .progress-bar {
-          width: 100%;
-          height: 8px;
-          background: #e6ecfa;
-          border-radius: 6px;
-          overflow: hidden;
-          margin-bottom: 0.7rem;
-        }
-        .progress-fill {
-          height: 100%;
-          background: linear-gradient(90deg, #2346a0 60%, #0d1b3f 100%);
-          border-radius: 6px;
-          transition: width 0.7s cubic-bezier(.4,0,.2,1);
-        }
-        .skill-desc {
-          font-size: 0.98rem;
-          color: var(--color-dark-blue);
-          margin-top: 0.5rem;
-          transition: max-height 0.3s cubic-bezier(.4,0,.2,1), opacity 0.3s;
-          overflow: hidden;
-        }
-        .skill-projects {
-          font-size: 0.93rem;
-          color: var(--color-royal-blue);
-          margin-top: 0.3rem;
-        }
-        @media (max-width: 900px) {
-          .skills-grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
-          }
-        }
-        @media (max-width: 600px) {
-          .skills-grid {
-            grid-template-columns: 1fr;
-            gap: 1rem;
-          }
-          .skill-card {
-            padding: 1rem 0.7rem 0.7rem 0.7rem;
-            min-height: 90px;
-          }
-          .skill-name {
-            font-size: 1rem;
-          }
-          .skill-level {
-            font-size: 0.9rem;
-          }
-          .skill-desc {
-            font-size: 0.92rem;
-          }
-        }
-      `}</style>
     </section>
   );
-} 
+}

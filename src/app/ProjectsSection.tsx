@@ -1,15 +1,48 @@
-'use client';
-import { useState, useMemo, type ReactElement } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import * as Dialog from '@radix-ui/react-dialog';
-import { FaApple, FaReact, FaGithub, FaExternalLinkAlt, FaHeart, FaRegCalendarAlt, FaVideo, FaServer, FaBell, FaShoppingBag } from 'react-icons/fa';
-import { SiFlutter, SiFirebase } from 'react-icons/si';
+"use client";
 
-const projects = [
+import { useMemo, useState, type ReactElement } from "react";
+import * as Dialog from "@radix-ui/react-dialog";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  FaApple,
+  FaArrowRight,
+  FaBell,
+  FaChartLine,
+  FaCheck,
+  FaComments,
+  FaExternalLinkAlt,
+  FaGithub,
+  FaHeart,
+  FaNewspaper,
+  FaReact,
+  FaRegCalendarAlt,
+  FaRegNewspaper,
+  FaServer,
+  FaShoppingBag,
+  FaSwift,
+  FaTimes,
+  FaVideo,
+} from "react-icons/fa";
+import { SiFirebase, SiFlutter } from "react-icons/si";
+import Reveal from "./Reveal";
+import TiltCard from "./TiltCard";
+
+type Project = {
+  title: string;
+  featured?: boolean;
+  description: string;
+  longDescription: string;
+  tech: string[];
+  github: string;
+  live: string;
+};
+
+const projects: Project[] = [
   {
-    title: 'LAW & CRIME',
-    description: 'OTT streaming app for live trials, legal news, and crime content with a CMS-driven UI.',
-    longDescription: `LAW & CRIME is a USA-based OTT streaming platform focused on live courtroom coverage, legal analysis, and crime-related content. The application is fully driven by a dynamic CMS, enabling flexible UI updates and content management without app releases.
+    title: "LAW & CRIME",
+    description:
+      "OTT streaming app for live trials, legal news, and crime content with a CMS-driven UI.",
+    longDescription: `LAW & CRIME is a USA-based OTT streaming platform focused on live courtroom coverage, legal analysis, and crime-related content.
 
 **Key Features:**
 - CMS-based dynamic UI rendering
@@ -21,15 +54,14 @@ const projects = [
 **Tech Stack:** iOS (Swift), UIKit, REST APIs, Deep Linking, Push Notifications
 
 **My Role:** Developed and integrated CMS-driven UI, handled API integration, implemented deep linking, and managed notification workflows for smooth content delivery.`,
-    image: '',
-    tech: ['iOS', 'Swift', 'Video', 'REST', 'Push'],
-    github: '',
-    live: '',
+    tech: ["iOS", "Swift", "Video", "REST", "Push"],
+    github: "",
+    live: "",
   },
   {
-    title: 'CNBC Arabia',
-    description: 'Full-featured news app with real-time updates, notifications, and deep linking.',
-    longDescription: `CNBC Arabia is a full-featured news application delivering business, finance, and global updates. The app was built end-to-end with a strong focus on performance, scalability, and user engagement.
+    title: "CNBC Arabia",
+    description: "Full-featured news app with real-time updates, notifications, and deep linking.",
+    longDescription: `CNBC Arabia is a full-featured news application delivering business, finance, and global updates.
 
 **Key Features:**
 - Real-time news feed with API integration
@@ -40,36 +72,34 @@ const projects = [
 
 **Tech Stack:** iOS (Swift), UIKit, REST APIs, Push Notifications, Deep Linking
 
-**My Role:** Independently built the entire application from scratch, including UI implementation, API integration, the notification system, and deep linking architecture.`,
-    image: '',
-    tech: ['iOS', 'Swift', 'News', 'Push', 'REST'],
-    github: '',
-    live: '',
+**My Role:** Built the application from scratch, including UI implementation, API integration, and notification architecture.`,
+    tech: ["iOS", "Swift", "News", "Push", "REST"],
+    github: "",
+    live: "",
   },
   {
-    title: 'ALTBalaji',
-    description: 'OTT subscription flows with StoreKit 2 for secure in-app purchases.',
-    longDescription: `ALTBalaji is a popular OTT streaming platform offering web series, movies, and exclusive content. My work focused on subscription management, ensuring smooth and secure in-app purchase flows.
+    title: "ALTBalaji",
+    description: "OTT subscription flows with StoreKit 2 for secure in-app purchases.",
+    longDescription: `ALTBalaji is a popular OTT streaming platform offering web series, movies, and exclusive content.
 
 **Key Features:**
 - Subscription handling using StoreKit 2
 - Purchase validation and receipt handling
-- Seamless experience for plans and upgrades
-- Backend integration for subscription status sync
+- Seamless plan upgrades and lifecycle sync
+- Backend integration for subscription status
 
 **Tech Stack:** iOS (Swift), StoreKit 2, In-App Purchases, REST APIs
 
-**My Role:** Implemented subscription modules with StoreKit 2, managed purchase flows and validations, and ensured reliable subscription lifecycle management.`,
-    image: '',
-    tech: ['iOS', 'Swift', 'StoreKit', 'REST'],
-    github: '',
-    live: '',
-  },  
+**My Role:** Implemented subscription modules, managed purchase validation, and ensured reliable subscription lifecycle behavior.`,
+    tech: ["iOS", "Swift", "StoreKit", "REST"],
+    github: "",
+    live: "",
+  },
   {
-    title: 'iDrop',
+    title: "iDrop",
     featured: true,
-    description: 'iOS Shopping App for seamless online purchases.',
-    longDescription: `iDrop is a modern iOS shopping app designed for a frictionless user experience. It features real-time inventory, Apple Pay integration, and a beautiful, intuitive UI. 
+    description: "iOS shopping app for seamless online purchases and fast checkout.",
+    longDescription: `iDrop is a modern iOS shopping app designed for a frictionless purchasing experience.
 
 **Key Features:**
 - Real-time product updates and inventory
@@ -79,36 +109,33 @@ const projects = [
 
 **Tech Stack:** Swift, UIKit, Firebase, Apple Pay
 
-**My Role:** Led the iOS development, designed the UI, and implemented payment flows.
-`,
-    image: '',
-    tech: ['iOS', 'Swift', 'Firebase', 'Shopping'],
-    github: '',
-    live: '',
+**My Role:** Led iOS development, designed the UI, and implemented payment workflows.`,
+    tech: ["iOS", "Swift", "Firebase", "Shopping"],
+    github: "",
+    live: "",
   },
   {
-    title: 'goPiviot',
-    description: 'iOS Health & Apple Watch App for fitness tracking.',
-    longDescription: `goPiviot helps users track workouts, health metrics, and syncs seamlessly with Apple Watch. The app provides detailed analytics, motivational streaks, and integrates with HealthKit.
+    title: "goPiviot",
+    description: "iOS + Apple Watch fitness app with health insights and analytics.",
+    longDescription: `goPiviot helps users track workouts, monitor health metrics, and sync seamlessly with Apple Watch.
 
 **Key Features:**
 - Apple Watch sync
 - HealthKit integration
-- Workout analytics and streaks
-- Customizable goals
+- Workout analytics and streak tracking
+- Goal customization and progress insights
 
 **Tech Stack:** Swift, SwiftUI, HealthKit, WatchOS
 
-**My Role:** Architected the WatchOS sync and built the analytics dashboard.`,
-    image: '',
-    tech: ['iOS', 'Swift', 'Health', 'WatchOS'],
-    github: '',
-    live: '',
+**My Role:** Architected WatchOS sync and built the analytics dashboard.`,
+    tech: ["iOS", "Swift", "Health", "WatchOS"],
+    github: "",
+    live: "",
   },
   {
-    title: 'TWR',
-    description: 'Bible & News App for daily inspiration and updates.',
-    longDescription: `TWR combines scripture reading with curated news in a single, easy-to-use app. Users can bookmark verses, receive daily devotionals, and stay updated with relevant news.
+    title: "TWR",
+    description: "Bible and news app for daily inspiration with curated updates.",
+    longDescription: `TWR combines scripture reading with curated news in a single, easy-to-use app.
 
 **Key Features:**
 - Bible reading and search
@@ -119,15 +146,14 @@ const projects = [
 **Tech Stack:** React Native, Firebase, News API, iOS, Swift
 
 **My Role:** Built the news feed and devotional modules, and led cross-platform deployment.`,
-    image: '',
-    tech: ['React Native', 'News', 'Firebase', 'iOS', 'Swift'],
-    github: '',
-    live: '',
+    tech: ["React Native", "News", "Firebase", "iOS", "Swift"],
+    github: "",
+    live: "",
   },
   {
-    title: 'By the Way',
-    description: 'React Native Dating App for meaningful connections.',
-    longDescription: `By the Way is a dating app focused on real conversations and genuine matches. It features advanced matching algorithms, in-app chat, and robust privacy controls.
+    title: "By the Way",
+    description: "React Native dating app focused on authentic conversations.",
+    longDescription: `By the Way is a dating app focused on genuine matches and real conversations.
 
 **Key Features:**
 - Smart matching algorithm
@@ -138,34 +164,32 @@ const projects = [
 **Tech Stack:** React Native, Firebase, Node.js
 
 **My Role:** Developed the chat system and implemented privacy features.`,
-    image: '',
-    tech: ['React Native', 'Dating', 'Chat'],
-    github: '',
-    live: '',
+    tech: ["React Native", "Dating", "Chat"],
+    github: "",
+    live: "",
   },
   {
-    title: 'Rallii',
-    description: 'Event Organizer App for seamless event planning.',
-    longDescription: `Rallii helps users organize, invite, and manage events with ease. Features include RSVP, reminders, group chat, and calendar sync.
+    title: "Rallii",
+    description: "Event organizer app for planning, invites, reminders, and RSVPs.",
+    longDescription: `Rallii helps users organize and manage events with a streamlined mobile workflow.
 
 **Key Features:**
 - Event creation and invitations
-- RSVP and reminders
+- RSVP and reminder management
 - Group chat
 - Calendar integration
 
 **Tech Stack:** React Native, Firebase, Google Calendar API
 
-**My Role:** Led React Native development and built the calendar sync module.`,
-    image: '',
-    tech: ['React Native', 'Event', 'Calendar'],
-    github: '',
-    live: '',
+**My Role:** Led React Native development and built calendar sync.`,
+    tech: ["React Native", "Event", "Calendar"],
+    github: "",
+    live: "",
   },
   {
-    title: 'CFL',
-    description: 'News & Publishing App for curated content.',
-    longDescription: `CFL is a platform for news, articles, and publishing, with a clean reading experience. It supports push notifications, user comments, and editorial tools.
+    title: "CFL",
+    description: "News and publishing app with editorial workflows and notifications.",
+    longDescription: `CFL is a platform for news, articles, and publishing with a clean reading experience.
 
 **Key Features:**
 - Curated news and articles
@@ -175,35 +199,33 @@ const projects = [
 
 **Tech Stack:** React Native, Firebase, Node.js, iOS, Swift
 
-**My Role:** Built the editorial dashboard and notification system.`,
-    image: '',
-    tech: ['React Native', 'News', 'Publishing', 'iOS', 'Swift'],
-    github: '',
-    live: '',
+**My Role:** Built the editorial dashboard and notification workflow.`,
+    tech: ["React Native", "News", "Publishing", "iOS", "Swift"],
+    github: "",
+    live: "",
   },
   {
-    title: 'ICEF',
-    description: 'Flutter Event App for conferences and meetups.',
-    longDescription: `ICEF provides event schedules, speaker bios, and live updates for conferences. Attendees can build custom agendas and receive real-time notifications.
+    title: "ICEF",
+    description: "Flutter event app for conferences with live updates and agendas.",
+    longDescription: `ICEF provides event schedules, speaker bios, and real-time conference updates.
 
 **Key Features:**
-- Event schedule and agenda
-- Speaker bios
+- Event schedule and custom agenda
+- Speaker profiles
 - Live updates
-- Customizable notifications
+- Configurable notifications
 
 **Tech Stack:** Flutter, Firebase
 
-**My Role:** Developed the agenda builder and live update system.`,
-    image: '',
-    tech: ['Flutter', 'Event', 'Conference'],
-    github: '',
-    live: '',
+**My Role:** Developed the agenda builder and live update modules.`,
+    tech: ["Flutter", "Event", "Conference"],
+    github: "",
+    live: "",
   },
   {
-    title: 'MiloCare',
-    description: 'Flutter Health App for personal wellness.',
-    longDescription: `MiloCare helps users track health goals, connect with providers, and monitor progress. The app features secure messaging, appointment scheduling, and health analytics.
+    title: "MiloCare",
+    description: "Flutter health app for personal wellness and care coordination.",
+    longDescription: `MiloCare helps users track goals, connect with providers, and monitor health progress.
 
 **Key Features:**
 - Health goal tracking
@@ -214,312 +236,364 @@ const projects = [
 **Tech Stack:** Flutter, Firebase, HealthKit
 
 **My Role:** Built the analytics dashboard and provider messaging system.`,
-    image: '',
-    tech: ['Flutter', 'Health', 'Analytics'],
-    github: '',
-    live: '',
+    tech: ["Flutter", "Health", "Analytics"],
+    github: "",
+    live: "",
   },
-  
 ];
 
 const gradients = [
-  'linear-gradient(135deg, #2346a0 0%, #0d1b3f 100%)',
-  'linear-gradient(135deg, #6a82fb 0%, #fc5c7d 100%)',
-  'linear-gradient(135deg, #43cea2 0%, #185a9d 100%)',
-  'linear-gradient(135deg, #ffaf7b 0%, #d76d77 100%)',
-  'linear-gradient(135deg, #f7971e 0%, #ffd200 100%)',
-  'linear-gradient(135deg, #00c6ff 0%, #0072ff 100%)',
-  'linear-gradient(135deg, #f953c6 0%, #b91d73 100%)',
-  'linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%)',
+  "linear-gradient(135deg, #0f9d8a 0%, #0f4c81 100%)",
+  "linear-gradient(135deg, #f97316 0%, #f43f5e 100%)",
+  "linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%)",
+  "linear-gradient(135deg, #14b8a6 0%, #0891b2 100%)",
+  "linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)",
+  "linear-gradient(135deg, #22c55e 0%, #0f766e 100%)",
 ];
 
-const techIcons: { [key: string]: ReactElement } = {
-  'iOS': <FaApple color="#2346a0" title="iOS" />, 'Swift': <FaApple color="#fa7343" title="Swift" />, 'Firebase': <SiFirebase color="#ffcb2b" title="Firebase" />, 'Shopping': <FaHeart color="#e17055" title="Shopping" />,
-  'Health': <FaHeart color="#00b894" title="Health" />, 'WatchOS': <FaApple color="#000" title="WatchOS" />, 'React Native': <FaReact color="#61dafb" title="React Native" />, 'News': <FaRegCalendarAlt color="#2346a0" title="News" />,
-  'Flutter': <SiFlutter color="#02569B" title="Flutter" />, 'Event': <FaRegCalendarAlt color="#2346a0" title="Event" />, 'Calendar': <FaRegCalendarAlt color="#2346a0" title="Calendar" />, 'Publishing': <FaRegCalendarAlt color="#2346a0" title="Publishing" />, 'Conference': <FaRegCalendarAlt color="#2346a0" title="Conference" />, 'Analytics': <FaRegCalendarAlt color="#2346a0" title="Analytics" />, 'Dating': <FaHeart color="#e17055" title="Dating" />, 'Chat': <FaHeart color="#e17055" title="Chat" />,
-  'Video': <FaVideo color="#c0392b" title="Video" />, 'REST': <FaServer color="#636e72" title="REST APIs" />, 'Push': <FaBell color="#e17055" title="Push notifications" />, 'StoreKit': <FaShoppingBag color="#2d3436" title="StoreKit" />,
+const techIcons: Record<string, ReactElement> = {
+  iOS: <FaApple color="#e5edf7" title="iOS" />,
+  Swift: <FaSwift color="#fa7343" title="Swift" />,
+  Firebase: <SiFirebase color="#ffca28" title="Firebase" />,
+  Shopping: <FaShoppingBag color="#2dd4bf" title="Shopping" />,
+  Health: <FaHeart color="#22c55e" title="Health" />,
+  WatchOS: <FaApple color="#e5edf7" title="WatchOS" />,
+  "React Native": <FaReact color="#22d3ee" title="React Native" />,
+  News: <FaNewspaper color="#60a5fa" title="News" />,
+  Flutter: <SiFlutter color="#54c5f8" title="Flutter" />,
+  Event: <FaRegCalendarAlt color="#a78bfa" title="Event" />,
+  Calendar: <FaRegCalendarAlt color="#a78bfa" title="Calendar" />,
+  Publishing: <FaRegNewspaper color="#60a5fa" title="Publishing" />,
+  Conference: <FaRegCalendarAlt color="#a78bfa" title="Conference" />,
+  Analytics: <FaChartLine color="#2dd4bf" title="Analytics" />,
+  Dating: <FaHeart color="#fb7185" title="Dating" />,
+  Chat: <FaComments color="#c084fc" title="Chat" />,
+  Video: <FaVideo color="#f87171" title="Video" />,
+  REST: <FaServer color="#94a3b8" title="REST APIs" />,
+  Push: <FaBell color="#fbbf24" title="Push notifications" />,
+  StoreKit: <FaShoppingBag color="#a78bfa" title="StoreKit" />,
 };
 
-const allTech = Array.from(new Set(projects.flatMap(p => p.tech)));
+const allTech = Array.from(new Set(projects.flatMap((project) => project.tech)));
+
+const categoryRules: { key: string; label: string }[] = [
+  { key: "Video", label: "Streaming" },
+  { key: "StoreKit", label: "Streaming" },
+  { key: "Shopping", label: "Commerce" },
+  { key: "Health", label: "Health & Fitness" },
+  { key: "Dating", label: "Social" },
+  { key: "Chat", label: "Social" },
+  { key: "Event", label: "Events" },
+  { key: "Conference", label: "Events" },
+  { key: "News", label: "Media" },
+  { key: "Publishing", label: "Media" },
+];
+
+function categoryOf(project: Project) {
+  const match = categoryRules.find((rule) => project.tech.includes(rule.key));
+  return match ? match.label : "Mobile App";
+}
+
+/** Primary platform badge, chosen from the tech list. */
+function platformOf(project: Project) {
+  if (project.tech.includes("Flutter")) return "Flutter";
+  if (project.tech.includes("React Native")) return "React Native";
+  return "iOS";
+}
+
+type ProjectDetail = {
+  overview: string;
+  features: string[];
+  techStack: string;
+  role: string;
+};
+
+/** Parses the markdown-ish longDescription into structured detail sections. */
+function parseProject(longDescription: string): ProjectDetail {
+  const clean = longDescription.replace(/\r/g, "");
+
+  const overview = clean.split("**")[0].trim();
+
+  const featuresBlock = clean.match(/\*\*Key Features:\*\*([\s\S]*?)(?:\n\n|\*\*)/);
+  const features = featuresBlock
+    ? featuresBlock[1]
+        .split("\n")
+        .map((line) => line.trim())
+        .filter((line) => line.startsWith("- "))
+        .map((line) => line.slice(2))
+    : [];
+
+  const techMatch = clean.match(/\*\*Tech Stack:\*\*\s*([^\n]*)/);
+  const roleMatch = clean.match(/\*\*My Role:\*\*\s*([\s\S]*?)$/);
+
+  return {
+    overview,
+    features,
+    techStack: techMatch ? techMatch[1].trim() : "",
+    role: roleMatch ? roleMatch[1].trim() : "",
+  };
+}
 
 export default function ProjectsSection() {
-  const [openIdx, setOpenIdx] = useState<number | null>(null);
-  const [filter, setFilter] = useState<string>('All');
+  const [openProjectTitle, setOpenProjectTitle] = useState<string | null>(null);
+  const [filter, setFilter] = useState("All");
 
-  const filteredProjects = useMemo(() => filter === 'All' ? projects : projects.filter(p => p.tech.includes(filter)), [filter]);
+  const filteredProjects = useMemo(
+    () => (filter === "All" ? projects : projects.filter((project) => project.tech.includes(filter))),
+    [filter],
+  );
+
+  const openIndex = projects.findIndex((project) => project.title === openProjectTitle);
+  const openProject = openIndex >= 0 ? projects[openIndex] : null;
 
   return (
-    <section id="projects" style={{ width: '100%', maxWidth: 1200, margin: '0 auto', marginTop: '4rem' }}>
-      <h2 style={{ textAlign: 'center', marginBottom: '2.5rem', fontSize: '2.2rem', letterSpacing: '-1px' }}>Projects</h2>
-      <div className="project-filters">
-        <button type="button" className={`project-filter${filter === 'All' ? ' active' : ''}`} onClick={() => setFilter('All')}>All</button>
-        {allTech.map(tech => (
-          <button type="button" key={tech} className={`project-filter${filter === tech ? ' active' : ''}`} onClick={() => setFilter(tech)}>{techIcons[tech] || tech} {tech}</button>
-        ))}
-      </div>
-      <div className="projects-grid">
-        {filteredProjects.map((project, idx) => (
-          <div
-            key={idx}
-            className={`project-card${project.featured ? ' featured' : ''}`}
-          >
-            {project.featured && <div className="project-featured">Featured</div>}
-            <div
-              className="project-image"
-              style={{ background: gradients[idx % gradients.length] }}
-            />
-            <div className="project-content">
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
-              <div className="project-tech">
-                {project.tech.map(tech => (
-                  <span key={tech} className="project-tech-badge">{techIcons[tech] || tech} {tech}</span>
-                ))}
-              </div>
-              <Dialog.Root open={openIdx === idx} onOpenChange={(open: boolean) => setOpenIdx(open ? idx : null)}>
-                <Dialog.Trigger asChild>
-                  <button className="project-btn">View Project</button>
-                </Dialog.Trigger>
-                <AnimatePresence>
-                  {openIdx === idx && (
-                    <Dialog.Portal forceMount>
-                      <Dialog.Overlay asChild>
-                        <motion.div
-                          className="project-modal-overlay"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.25 }}
-                        />
-                      </Dialog.Overlay>
-                      <Dialog.Content asChild>
-                        <motion.div
-                          className="project-modal"
-                          initial={{ scale: 0.92, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          exit={{ scale: 0.92, opacity: 0 }}
-                          transition={{ duration: 0.25 }}
+    <section id="projects" className="projects-section">
+      <div className="container">
+        <Reveal>
+          <p className="section-kicker">Projects</p>
+          <h2 className="section-title">Real Products Used By Real Users</h2>
+          <p className="section-copy">
+            A mix of OTT, commerce, media, health, and event apps delivered across native iOS and cross-platform
+            stacks.
+          </p>
+
+          <div className="project-filter-row" role="toolbar" aria-label="Project filters">
+            <button
+              type="button"
+              className={`project-filter${filter === "All" ? " active" : ""}`}
+              onClick={() => setFilter("All")}
+            >
+              All
+            </button>
+
+            {allTech.map((tech) => (
+              <button
+                type="button"
+                key={tech}
+                className={`project-filter${filter === tech ? " active" : ""}`}
+                onClick={() => setFilter(tech)}
+              >
+                {techIcons[tech] ?? null}
+                <span>{tech}</span>
+              </button>
+            ))}
+          </div>
+        </Reveal>
+
+        <motion.div layout className="projects-grid">
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project) => {
+              const index = projects.indexOf(project);
+
+              return (
+                <motion.div
+                  key={project.title}
+                  layout
+                  initial={{ opacity: 0, y: 22 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <TiltCard className="project-card" max={6}>
+                    <button
+                      type="button"
+                      className="project-card-btn"
+                      onClick={() => setOpenProjectTitle(project.title)}
+                      aria-label={`View case study for ${project.title}`}
+                    >
+                      <div className="project-card-head">
+                        <span
+                          className="project-icon"
+                          style={{ backgroundImage: gradients[index % gradients.length] }}
+                          aria-hidden
                         >
-                          <div className="project-modal-image" style={{ background: gradients[idx % gradients.length] }} />
-                          <Dialog.Title asChild>
-                            <h3>{project.title}</h3>
-                          </Dialog.Title>
-                          <p style={{ margin: '1.2rem 0 1.7rem 0', color: 'var(--color-dark-blue)' }}>{project.longDescription.split('\n\n').map((para, i) => <span key={i} style={{ display: 'block', marginBottom: '0.7rem' }} dangerouslySetInnerHTML={{ __html: para.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />)}</p>
+                          {project.title.charAt(0)}
+                        </span>
+                        <span className="project-card-heading">
+                          <span className="project-card-title">{project.title}</span>
+                          <span className="project-card-category">{categoryOf(project)}</span>
+                        </span>
+                        {project.featured ? (
+                          <span className="project-featured">Featured</span>
+                        ) : (
+                          <span className="project-platform">{platformOf(project)}</span>
+                        )}
+                      </div>
+
+                      <p className="project-card-desc">{project.description}</p>
+
+                      <div className="project-badges">
+                        {project.tech.slice(0, 4).map((tech) => (
+                          <span key={tech} className="project-badge">
+                            {techIcons[tech] ?? null}
+                            <span>{tech}</span>
+                          </span>
+                        ))}
+                        {project.tech.length > 4 ? (
+                          <span className="project-badge project-badge-more">
+                            +{project.tech.length - 4}
+                          </span>
+                        ) : null}
+                      </div>
+
+                      <span className="project-card-cta">
+                        View case study
+                        <FaArrowRight aria-hidden />
+                      </span>
+                    </button>
+                  </TiltCard>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+
+      <Dialog.Root
+        open={openProject !== null}
+        onOpenChange={(open) => {
+          if (!open) setOpenProjectTitle(null);
+        }}
+      >
+        <AnimatePresence>
+          {openProject ? (
+            <Dialog.Portal forceMount>
+              <Dialog.Overlay asChild>
+                <motion.div
+                  className="project-modal-overlay"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                />
+              </Dialog.Overlay>
+
+              <Dialog.Content asChild aria-describedby={undefined}>
+                <motion.div
+                  className="project-modal"
+                  initial={{ opacity: 0, y: 28, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 20, scale: 0.98 }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {(() => {
+                    const detail = parseProject(openProject.longDescription);
+                    const gradient = gradients[openIndex % gradients.length];
+
+                    return (
+                      <>
+                        <header className="project-modal-hero" style={{ backgroundImage: gradient }}>
+                          <div className="project-modal-hero-overlay" aria-hidden />
+                          <Dialog.Close asChild>
+                            <button type="button" className="project-modal-x" aria-label="Close">
+                              <FaTimes />
+                            </button>
+                          </Dialog.Close>
+
+                          <div className="project-modal-heading">
+                            <span className="project-modal-icon" aria-hidden>
+                              {openProject.title.charAt(0)}
+                            </span>
+                            <div>
+                              <span className="project-modal-category">{categoryOf(openProject)}</span>
+                              <Dialog.Title className="project-modal-title">
+                                {openProject.title}
+                              </Dialog.Title>
+                              <span className="project-modal-platform">
+                                {platformOf(openProject)}
+                              </span>
+                            </div>
+                          </div>
+                        </header>
+
+                        <div className="project-modal-body">
+                          {detail.overview ? (
+                            <p className="project-modal-overview">{detail.overview}</p>
+                          ) : null}
+
+                          {detail.features.length > 0 ? (
+                            <section className="project-modal-section">
+                              <h4>Key Features</h4>
+                              <ul className="project-feature-list">
+                                {detail.features.map((feature) => (
+                                  <li key={feature}>
+                                    <span className="project-feature-check" aria-hidden>
+                                      <FaCheck />
+                                    </span>
+                                    {feature}
+                                  </li>
+                                ))}
+                              </ul>
+                            </section>
+                          ) : null}
+
+                          <div className="project-modal-meta">
+                            {detail.techStack ? (
+                              <div className="project-meta-card">
+                                <h5>Tech Stack</h5>
+                                <p>{detail.techStack}</p>
+                              </div>
+                            ) : null}
+                            {detail.role ? (
+                              <div className="project-meta-card project-meta-card-role">
+                                <h5>My Role</h5>
+                                <p>{detail.role}</p>
+                              </div>
+                            ) : null}
+                          </div>
+
                           <div className="project-modal-tech">
-                            {project.tech.map(tech => (
-                              <span key={tech} className="project-tech-badge">{techIcons[tech] || tech} {tech}</span>
+                            {openProject.tech.map((tech) => (
+                              <span
+                                key={`modal-${openProject.title}-${tech}`}
+                                className="project-badge"
+                              >
+                                {techIcons[tech] ?? null}
+                                <span>{tech}</span>
+                              </span>
                             ))}
                           </div>
-                          <div className="project-modal-links">
-                            {project.github && <a href={project.github} target="_blank" rel="noopener" className="project-link"><FaGithub /> GitHub</a>}
-                            {project.live && <a href={project.live} target="_blank" rel="noopener" className="project-link"><FaExternalLinkAlt /> See Live</a>}
-                          </div>
-                          <button className="project-btn" onClick={() => setOpenIdx(null)}>Close</button>
-                        </motion.div>
-                      </Dialog.Content>
-                    </Dialog.Portal>
-                  )}
-                </AnimatePresence>
-              </Dialog.Root>
-            </div>
-          </div>
-        ))}
-      </div>
-      <style>{`
-        .project-filters {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.7rem;
-          justify-content: center;
-          margin-bottom: 2.2rem;
-        }
-        .project-filter {
-          background: #e6ecfa;
-          color: var(--color-royal-blue);
-          border: none;
-          border-radius: 0.7rem;
-          padding: 0.5rem 1.2rem;
-          font-size: 1.02rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: background 0.18s, color 0.18s;
-          outline: none;
-          display: flex;
-          align-items: center;
-          gap: 0.4rem;
-        }
-        .project-filter.active, .project-filter:hover, .project-filter:focus {
-          background: linear-gradient(90deg, #2346a0 60%, #0d1b3f 100%);
-          color: #fff;
-        }
-        .projects-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-          gap: 2.5rem;
-          width: 100%;
-        }
-        .project-card {
-          background: rgba(248,249,250,0.92);
-          border-radius: 1.5rem;
-          box-shadow: 0 4px 24px var(--color-shadow);
-          padding: 0;
-          display: flex;
-          flex-direction: column;
-          align-items: stretch;
-          overflow: hidden;
-          transition: box-shadow 0.22s, transform 0.22s;
-          cursor: pointer;
-          min-height: 340px;
-          position: relative;
-          align-self: center;
-        }
-        .project-card.featured {
-          border: 2.5px solid #2346a0;
-        }
-        .project-featured {
-          position: absolute;
-          top: 0.9rem;
-          right: -2.2rem;
-          background: linear-gradient(90deg, #2346a0 60%, #0d1b3f 100%);
-          color: #fff;
-          font-size: 0.98rem;
-          font-weight: 700;
-          padding: 0.3rem 2.2rem;
-          border-radius: 1.2rem;
-          transform: rotate(22deg);
-          z-index: 2;
-          box-shadow: 0 2px 8px var(--color-shadow);
-        }
-        .project-image {
-          width: 100%;
-          height: 160px;
-          border-radius: 1.5rem 1.5rem 0 0;
-          background-size: cover;
-          background-position: center;
-        }
-        .project-content {
-          padding: 1.5rem 1.2rem 1.2rem 1.2rem;
-          display: flex;
-          flex-direction: column;
-          flex: 1;
-        }
-        .project-content h3 {
-          margin: 0 0 0.7rem 0;
-          color: var(--color-royal-blue);
-          font-size: 1.22rem;
-          font-weight: 700;
-        }
-        .project-content p {
-          color: var(--color-dark-blue);
-          font-size: 1.05rem;
-          margin-bottom: 1.2rem;
-        }
-        .project-tech {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.5rem;
-          margin-bottom: 1.1rem;
-        }
-        .project-tech-badge {
-          background: #e6ecfa;
-          color: var(--color-royal-blue);
-          border-radius: 0.7rem;
-          padding: 0.22rem 0.85rem;
-          font-size: 0.93rem;
-          font-weight: 500;
-          display: flex;
-          align-items: center;
-          gap: 0.3rem;
-        }
-        .project-btn {
-          background: linear-gradient(90deg, #2346a0 60%, #0d1b3f 100%);
-          color: #fff;
-          border: none;
-          border-radius: 0.7rem;
-          padding: 0.7rem 1.7rem;
-          font-size: 1.08rem;
-          font-weight: 600;
-          cursor: pointer;
-          box-shadow: 0 2px 8px var(--color-shadow);
-          transition: background 0.18s, color 0.18s, box-shadow 0.18s;
-        }
-        .project-btn:hover, .project-btn:focus {
-          background: linear-gradient(90deg, #0d1b3f 60%, #2346a0 100%);
-          color: #fff;
-          box-shadow: 0 4px 16px var(--color-shadow);
-        }
-        .project-modal-overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(24, 26, 27, 0.55);
-          z-index: 1000;
-        }
-        .project-modal {
-          position: fixed;
-          top: 10%;
-          left: 10%;
-          right: 10%;
 
-          transform: translate(-50%, -50%);
-          background: #fff;
-          border-radius: 1.2rem;
-          box-shadow: 0 8px 32px rgba(35,70,160,0.16);
-          padding: 2.5rem 2rem 2rem 2rem;
-          min-width: 320px;
-          max-width: 95vw;
-          z-index: 1001;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        
-        }
-        .project-modal-image {
-          width: 100%;
-          height: 120px;
-          border-radius: 1.2rem 1.2rem 0 0;
-          margin-bottom: 1.2rem;
-        }
-        .project-modal-tech {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.5rem;
-          margin-bottom: 1.1rem;
-        }
-        .project-modal-links {
-          display: flex;
-          gap: 1.2rem;
-          margin-bottom: 1.2rem;
-        }
-        .project-link {
-          color: var(--color-royal-blue);
-          font-size: 1.08rem;
-          font-weight: 600;
-          text-decoration: none;
-          display: flex;
-          align-items: center;
-          gap: 0.4rem;
-          transition: color 0.18s;
-        }
-        .project-link:hover, .project-link:focus {
-          color: #0d1b3f;
-        }
-        @media (max-width: 900px) {
-          .projects-grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
-          }
-        }
-        @media (max-width: 600px) {
-          .projects-grid {
-            grid-template-columns: 1fr;
-            gap: 1rem;
-          }
-          .project-modal {
-            padding: 1.2rem 0.7rem 1.1rem 0.7rem;
-            min-width: 0;
-          }
-        }
-      `}</style>
+                          {openProject.github || openProject.live ? (
+                            <div className="project-modal-links">
+                              {openProject.github ? (
+                                <a
+                                  href={openProject.github}
+                                  target="_blank"
+                                  rel="noopener"
+                                  className="project-link"
+                                >
+                                  <FaGithub />
+                                  GitHub
+                                </a>
+                              ) : null}
+                              {openProject.live ? (
+                                <a
+                                  href={openProject.live}
+                                  target="_blank"
+                                  rel="noopener"
+                                  className="project-link"
+                                >
+                                  <FaExternalLinkAlt />
+                                  Live Demo
+                                </a>
+                              ) : null}
+                            </div>
+                          ) : (
+                            <p className="project-modal-note">
+                              Delivered as a production client app — source under NDA.
+                            </p>
+                          )}
+                        </div>
+                      </>
+                    );
+                  })()}
+                </motion.div>
+              </Dialog.Content>
+            </Dialog.Portal>
+          ) : null}
+        </AnimatePresence>
+      </Dialog.Root>
     </section>
   );
-} 
+}
